@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>02_JSX</title>
+</head>
+<script src="../js/react.js"></script>
+<script src="../js/react-dom.js"></script>
+<script src="../js/babel.min.js"></script>
+<body>
+
+<div id="demo"></div>
+
+<script type="text/babel">
+
+    //一般不用这种方式创建虚拟DOM对象
+    let element = React.createElement('h1', {id:'element1'}, 'hello world');
+
+    ReactDOM.render(element, document.getElementById('demo'));
+
+</script>
+
+</body>
+</html>

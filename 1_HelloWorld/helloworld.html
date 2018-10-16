@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>HelloWorld</title>
+
+  <script type="text/javascript" src="../js/react.js"></script>
+  <script type="text/javascript" src="../js/react-dom.js"></script>
+  <script type="text/javascript" src="../js/babel.min.js"></script>
+</head>
+<body>
+
+  <div id="demo"></div>
+
+
+  <script type="text/babel">
+
+      console.log(ReactDOM);
+
+      //在js里写html
+      //render方法要传递2个参数   参数1：要创建的虚拟DOM   参数2：虚拟DOM将要放置的容器
+      //注意：虚拟DOM会先转换成真实DOM，在放置参数2指定的页面的容器
+      ReactDOM.render(<h1>Hello  World</h1>,
+          document.getElementById('demo'));
+
+  </script>
+
+
+</body>
+</html>

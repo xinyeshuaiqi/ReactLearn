@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>react组件开发</title>
+</head>
+<body>
+
+<div id="demo1"></div>
+<div id="demo2"></div>
+
+
+<script src="../js/react.js"></script>
+<script src="../js/react-dom.js"></script>
+<script src="../js/babel.min.js"></script>
+
+<script type="text/babel">
+
+  //1. 定义组件
+
+  //方式1: 工厂(无状态)函数(简单组件, 推荐使用)
+  function MyComponent1() {
+    return <h1>我的react组件1</h1>;
+  }
+
+  //方式2: ES6类语法(复杂组件, 推荐使用)
+  class MyComponent2 extends React.Component {
+    render() {
+      return <h1>我的react组件2</h1>;
+    }
+  }
+
+  //2. 渲染组件标签
+  ReactDOM.render(<MyComponent1/>, document.getElementById('demo1'));
+  ReactDOM.render(<MyComponent2/>, document.getElementById('demo2'));
+
+</script>
+</body>
+</html>

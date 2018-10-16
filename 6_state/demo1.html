@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>state</title>
+</head>
+<body>
+
+<div id="demo"></div>
+
+<script src="../js/react.js"></script>
+<script src="../js/react-dom.js"></script>
+<script src="../js/babel.min.js"></script>
+<script type="text/babel">
+
+  //现在想要点击文字，文字根据我们指定的规则变化
+  class LOL extends React.Component{
+      constructor(props){
+          super(props);
+
+          //初始化state
+          this.state={
+              isWho : true
+          };
+
+          this.handleClick = this.handleClick.bind(this);
+      }
+
+      handleClick(){
+          let isWho = !this.state.isWho;  // 每次点击true--->false ，false--->true
+          //更新state
+          this.setState({
+              isWho : isWho
+          });
+      }
+
+      render(){
+          let {isWho} =this.state;     //这种用法称解构赋值(解析对象结构)   等价于  let isWho = this.state.isWho
+          let msg = isWho ? 'UZI' : 'faker';
+          return(
+              <div onClick={this.handleClick}>
+                  {msg} Penta Kill  !!!
+              </div>
+          )
+      }
+  }
+
+  ReactDOM.render(<LOL/>,document.getElementById('demo'));
+
+</script>
+</body>
+</html>
+

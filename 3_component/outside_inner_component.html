@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>组件嵌套</title>
+</head>
+<body>
+
+
+<div id="demo"></div>
+
+<script src="../js/react.js"></script>
+<script src="../js/react-dom.js"></script>
+<script src="../js/babel.min.js"></script>
+
+<script type="text/babel">
+
+  //定义内部组件
+  class Inner extends React.Component {
+    render() {
+      return <h1>{this.props.item}  Penta Kill ！</h1>;
+    }
+  }
+
+  Inner.propTypes = {
+      item: React.PropTypes.string.isRequired
+  };
+
+  //定义外部应用组件    主组件
+  //注意   Inner也是组件需要放在容器里（div）
+  class Outside extends React.Component {
+
+    //要从Outside里数据传入Inner组件
+    render() {
+      return (
+        <div>
+          {
+            this.props.names.map(
+              (item, index) => <Inner item={item} key={index}/>
+            )
+          }
+        </div>
+      );
+    }
+  }
+
+  Outside.propTypes = {
+    names: React.PropTypes.array.isRequired
+  };
+
+  var names = ['UZI', 'faker', "7777777"];
+
+  //直接渲染外部组件   向组件内部传入外部数据（数组names）
+  ReactDOM.render(<Outside names={names}/>, document.getElementById('demo'));
+
+
+</script>
+</body>
+</html>

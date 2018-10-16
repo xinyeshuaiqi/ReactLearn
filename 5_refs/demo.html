@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>拿到input标签里的数据</title>
+</head>
+<body>
+
+  <div id="demo"></div>
+
+  <script src="../js/react.js"></script>
+  <script src="../js/react-dom.js"></script>
+  <script src="../js/babel.min.js"></script>
+  <script type="text/babel">
+
+    class App extends  React.Component{
+        //constructor只会被调用一次  render（）可能会调用多次
+        constructor(props){
+            super(props);
+
+            //修改handleClick的this   constructor里的this必是组件实例对象
+            //可以通过constructor里的this找到handleClick   进而修改handleClick的this   call,apply,bind的用法？
+
+            this.handleClick = this.handleClick.bind(this);
+        }
+        handleClick(){
+            //注意：自定义方法的this都指向null    而我们想要的this是指向组件的实例对象   ---->强制绑定this
+            //console.log(this);    强制绑定this之前打印null,强制绑定this之后打印为组件的实例对象
+            //获取第一个input的数据
+            alert(this.refs.message.value);
+        }
+        //注意：虚拟DOM  绑定事件的方式和真实DOM不同   真实DOM(onclick=xxx)  虚拟DOM(onClick=xxx)
+        render(){
+            console.log(this);
+            console.log(this.refs);
+            return(
+                <div>
+                    <input  type="text" ref="message" />
+                    <button onClick={this.handleClick}>提示输入数据</button>
+                </div>
+            )
+        }
+    }
+    ReactDOM.render(<App/>,document.getElementById('demo'));
+
+
+  </script>
+</body>
+</html>

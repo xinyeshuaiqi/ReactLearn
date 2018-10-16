@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>state练习-动态添加</title>
+</head>
+<body>
+
+  <div id="demo"></div>
+
+  <script src="../js/react.js"></script>
+  <script src="../js/react-dom.js"></script>
+  <script src="../js/babel.min.js"></script>
+  <script type="text/babel">
+
+  class App extends React.Component{
+      constructor(props){
+          super(props);
+
+          //初始化state   要给List组件去显示
+          this.state={
+              list:['UZI','faker','7777777']
+          };
+
+          this.add=this.add.bind(this);
+
+      }
+
+      //通过函数调用拿到内层组件传来的数据
+      add(newPalyer){
+          console.log(newPalyer);
+
+          let list = this.state.list;
+          list.push(newPalyer);   //把新输入的数据加入数组尾部    push方法是直接更改原数组，返回更改后的长度
+
+          console.log(list);
+          //更新state
+          this.setState({list})
+      }
+
+      //App组件内部嵌套2个组件
+      render(){
+          let {list} = this.state;   //把这个数据给List组件
+
+          //把add函数作为数据通过 AddToList组件标签属性传给AddToList
+          //length是数组的长度
+          return(
+              <div>
+                  <h1>LOL战榜</h1>
+                  <AddToList add={this.add}  length={list.length}/>
+                  <List mydata={list}/>
+              </div>
+          )
+      }
+  }
+
+  class AddToList extends React.Component{
+      constructor(props){
+          super(props);
+
+          //强制绑定this
+          this.addPlayer=this.addPlayer.bind(this);
+      }
+
+      //给button绑定的点击事件
+      addPlayer(){
+          let value = this.refs.playerName.value;
+
+          //判断输入的内容是否为空格
+          if(!value.trim()){
+              alert("输入不能为空！");
+              return
+          }
+
+          //调用函数 （利用函数从组件内部向组件外部传递数据）
+          this.props.add(value);
+
+          //添加后清空输入框里的数据
+          this.refs.playerName.value = '';
+      }
+
+      render(){
+          let {length} =this.props;
+          return(
+              <div>
+                  <input  type="text" ref="playerName"/>
+                  <button onClick={this.addPlayer}>Add #{length}</button>
+              </div>
+          )
+      }
+  }
+
+  class List extends React.Component{
+      render(){
+          //通过组件标签属性传的值需要用props取
+          let {mydata} = this.props;
+          return(
+              <ul>
+                  {
+                      //html里写js要加大括号   index是个唯一值，我们刚好利用它，而虚拟DOM需要给li标签附一个key
+                      mydata.map(function (item, index) {
+                          return <li key={index}>{item}</li>
+                      })
+                  }
+              </ul>
+          )
+      }
+  }
+
+  ReactDOM.render(<App />,document.getElementById('demo'));
+
+  </script>
+</body>
+</html>
+

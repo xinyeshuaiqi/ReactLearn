@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>demo</title>
+</head>
+<body>
+
+<div id="demo1"></div>
+<div id="demo2"></div>
+
+<script src="../js/react.js"></script>
+<script src="../js/react-dom.js"></script>
+<script src="../js/babel.min.js"></script>
+
+<script type="text/babel">
+
+  var names = ['UZI', 'faker', '7777777777'];
+
+  ReactDOM.render(
+    <ul>
+      {
+          //相当于返回一个新数组，数组的每个元素是一个li
+          //遍历数组得有唯一的key
+        names.map(function (item, index) {
+          return <li key={index}>{item}</li>;   //js加{ }
+        })
+      }
+    </ul>,
+    document.getElementById('demo1')
+  );
+
+  //简化编码(箭头函数)
+  ReactDOM.render(
+      <ul>{names.map((item, index)=><li key={index}>{item}</li>)}</ul>,
+      document.getElementById('demo2')
+  );
+
+</script>
+</body>
+</html>

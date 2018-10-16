@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>虚拟DOM</title>
+</head>
+<script src="../js/react.js"></script>
+<script src="../js/react-dom.js"></script>
+<script src="../js/babel.min.js"></script>
+<body>
+
+<div id="demo"></div>
+
+<script type="text/babel">
+
+    //1,初始化动态数据
+    let remark = '666!';
+    let name = 'xinye';
+
+    //2,创建虚拟dom （js对象）: JSX
+    let vDOM = <h1 id="myTitle" name={name}>{remark}</h1>;   // html里写js要加大括号
+
+    //3,将虚拟dom渲染中页面元素中
+    ReactDOM.render(vDOM, document.getElementById('demo'));
+
+</script>
+
+</body>
+</html>
