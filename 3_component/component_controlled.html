@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>受控组件</title>
+</head>
+<body>
+    <!--
+    Vue是双向数据绑定的
+    React是一个单向数据流，但可以自定义双向数据流组件(受控组件)
+    -->
+    <div id="demo"></div>
+
+    <script src="../js/react.js"></script>
+    <script src="../js/react-dom.js"></script>
+    <script src="../js/babel.min.js"></script>
+    <script type="text/babel">
+
+        class MyComponent extends React.Component {
+            constructor(props) {
+                super(props)
+                this.state = {
+                    msg: 'xinyeshuaiqi'
+                }
+                this.handleChange = this.handleChange.bind(this)
+            }
+
+            //触发事件的event
+            handleChange(event) {
+                let msg = event.target.value
+                this.setState({
+                    msg:msg
+                })
+            }
+
+            //输入框和下面显示的内容绑定，一起变化，通过state来控制
+            render() {
+                return (
+                    <div>
+                        <input type="text" value={this.state.msg} onChange={this.handleChange}/>
+                        <p>我跟着你一起变：{this.state.msg}</p>
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(<MyComponent/>, document.getElementById('demo'))
+
+    </script>
+
+</body>
+</html>
