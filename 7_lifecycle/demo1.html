@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件生命周期 - 更新</title>
+</head>
+<body>
+<div id="demo"></div>
+
+<script src="../js/react.js"></script>
+<script src="../js/react-dom.js"></script>
+<script src="../js/babel.min.js"></script>
+<script type="text/babel">
+
+    /*
+    * 为了便于观察理解，组件的渲染单独放在demo.html
+    * demo1.html有组件的更新
+    * */
+
+    class LifeCycle extends  React.Component{
+        constructor(props){
+            super(props);
+
+            this.state={
+                person:{
+                    name:'xinye',
+                    age:21
+                }
+            }
+
+            console.log('constructor被调用  ---->  创建组件实例')
+        }
+
+        //组件将要被渲染
+        componentWillMount(){
+            console.log('componentWillMount被调用  ---->  组件将被渲染')
+            //这里可以发送ajax请求，开启定时器
+
+            /*
+            * 为什么ajax请求放在这里？
+            * 组件还没有渲染出来，就发送请求，数据来了，页面也刚好渲染出来了
+            *
+            * 但是如果componentWillMount干的活太重话，render()方法一直还没执行，用户一直等待页面的渲染、
+            *
+            * 可以根据需求选择在componentWillMount()还是componentDidMount()发送ajax请求
+            * */
+
+            //开启定时器   定时器的this是window,因此需要修改this
+            setTimeout(function () {
+                this.setState({
+                    person:{
+                        name:'wmx',
+                        age:22
+                    }
+                })
+            }.bind(this),5000)  //推迟5秒钟，修改状态
+
+            //箭头函数没有this,向外层找this，外层是componentWillMount() ，他的this指向实例对象
+            setTimeout(()=>{
+                this.setState({
+                    person:{
+                        name:'xinyeshuaiqi',
+                        age:23
+                    }
+                })
+            },5000)  //5秒钟后，再次修改状态
+        }
+
+        //组件已经被渲染    用户已经看到界面
+        componentDidMount(){
+            console.log('componentDidMount被调用  ---->  组件已经被渲染')
+        }
+
+        //组件将要更新
+        componentWillUpdate(){
+            console.log('componentWillUpdate被调用  ---->  组件将要更新')
+        }
+
+        //组件已被更新
+        componentDidUpdate(){
+            console.log('componentDidUpdate被调用  ---->  组件已经更新')
+        }
+
+        //组件将被移除
+        componentWillUnMount(){
+            console.log('componentWillUnMount被调用  ---->  组件将被移除')
+        }
+
+        render(){
+            console.log('render被调用  ---->  渲染组件')
+            let {person} =this.state;
+            return (
+                <div>{person.name},{person.age}</div>
+            )
+        }
+    }
+
+    ReactDOM.render(<LifeCycle />,document.getElementById('demo'));
+
+</script>
+
+</body>
+</html>

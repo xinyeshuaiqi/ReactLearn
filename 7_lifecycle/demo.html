@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件生命周期</title>
+</head>
+<body>
+<div id="demo"></div>
+
+<script src="../js/react.js"></script>
+<script src="../js/react-dom.js"></script>
+<script src="../js/babel.min.js"></script>
+<script type="text/babel">
+
+    /*
+    * 组件从创建到销毁
+    * */
+
+    class LifeCycle extends  React.Component{
+        constructor(props){
+            super(props);
+
+            this.state={
+                person:{
+                    name:'wmx',
+                    age:21
+                }
+            }
+
+            console.log('constructor被调用  ---->  创建组件实例')
+        }
+
+        //组件将要被渲染
+        componentWillMount(){
+            console.log('componentWillMount被调用  ---->  组件将被渲染')
+        }
+
+        //组件已经被渲染
+        componentDidMount(){
+            console.log('componentDidMount被调用  ---->  组件已经被渲染')
+        }
+
+        render(){
+            console.log('render被调用  ---->  渲染组件')
+            let {person} =this.state;
+            return (
+                <div>{person.name},{person.age}</div>
+            )
+        }
+    }
+
+    ReactDOM.render(<LifeCycle />,document.getElementById('demo'));
+
+</script>
+
+</body>
+</html>

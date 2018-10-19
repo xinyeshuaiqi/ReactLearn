@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>React diff算法( 最小化页面重绘 )</title>
+</head>
+<body>
+<div id="demo"></div>
+<br>
+
+<script src="../js/react.js"></script>
+<script src="../js/react-dom.js"></script>
+<script src="../js/babel.min.js"></script>
+<script type="text/babel">
+
+  class TimeRecord extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        date: new Date()
+      };
+    }
+
+    componentDidMount () {
+      setInterval(() => {
+        this.setState({
+          date: new Date()
+        })
+      }, 1000)   //每一秒钟更新一次  页面重绘一次
+    }
+
+    render () {
+      console.log('render()调用...');
+
+      /*观察在输入框内输入的东西，会不会每秒清空一次
+      如果清空了，说明整个页面都随着state状态的改变而重绘
+      如果没有清空，则说明重绘只是针对小范围的，即最小化页面重绘 （局部）
+       */
+      return (
+          <p>
+            <input type="text" placeholder="input something"/>!
+            当前时间 ：{this.state.date.toTimeString()}
+          </p>
+      );
+    }
+  }
+
+  ReactDOM.render(
+      <TimeRecord/>, document.getElementById('demo')
+  );
+</script>
+</body>
+</html>

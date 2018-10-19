@@ -1,0 +1,5 @@
+预备知识：组件的创建和渲染，组件的state属性
+
+请按照demo demo1 demo2 .... 的顺序往下看
+
+相关内容见我的博客  http://xinyeshuaiqi.cn

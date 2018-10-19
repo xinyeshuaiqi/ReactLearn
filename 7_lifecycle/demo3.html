@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件生命周期练习</title>
+</head>
+<body>
+<a id="demo" href="http://www.xinyeshuaiqi.cn"></a>
+
+<script src="../js/react.js"></script>
+<script src="../js/react-dom.js"></script>
+<script src="../js/babel.min.js"></script>
+<script type="text/babel">
+
+    //将要展示的效果 ： 页面字体的透明度改变
+    class ShowSomething extends  React.Component{
+        constructor(props){
+            super(props);
+            this.state={
+                opacity:1   //不断修改这个opacity
+            }
+        }
+
+        componentDidMount(){
+            let opacity = this.state.opacity;
+            setInterval(()=>{
+                opacity-=0.05;   //加减有一定的偏差
+                if(opacity < 0){
+                    opacity=1;
+                }
+                this.setState({opacity});
+            },500)
+        }
+
+        render(){
+            let opacity=this.state.opacity;
+
+            //虚拟DOM内写大括号，需要写2对{ }
+            return (
+                <div style={{opacity:opacity}}>xinyeshuaiqi.cn</div>
+            )
+        }
+    }
+
+    ReactDOM.render(<ShowSomething/>,document.getElementById('demo'));
+
+</script>
+
+</body>
+</html>
